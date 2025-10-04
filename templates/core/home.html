@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>DjangoBox Feedbacks | Hacktoberfest 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', ui-sans-serif, system-ui;
+        }
+
+        .drawer-open {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-950 text-slate-100">
+<!-- Navbar -->
+<nav class="fixed top-0 left-0 w-full z-30 backdrop-blur-lg bg-cyan-900/70 border-b border-cyan-800">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
+        <span class="text-lg font-bold text-cyan-300 tracking-wide">DjangoBox</span>
+        <button id="openDrawerBtn"
+                class="px-4 py-2 rounded-xl bg-emerald-500 text-white font-semibold shadow hover:bg-emerald-400 transition">
+            Submit Feedback
+        </button>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="relative pt-32 pb-20 bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-900">
+    <div class="absolute inset-0 pointer-events-none">
+        <svg class="w-full h-full" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <radialGradient id="bgPattern" cx="50%" cy="50%" r="80%" fx="50%" fy="50%">
+                    <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.18"/>
+                    <stop offset="100%" stop-color="#0f172a" stop-opacity="0.8"/>
+                </radialGradient>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#bgPattern)"/>
+            <ellipse cx="1200" cy="80" rx="120" ry="60" fill="#6366f1" fill-opacity="0.12"/>
+            <ellipse cx="300" cy="220" rx="80" ry="40" fill="#3b82f6" fill-opacity="0.10"/>
+            <ellipse cx="700" cy="180" rx="100" ry="50" fill="#6366f1" fill-opacity="0.08"/>
+        </svg>
+        <div class="absolute inset-0 z-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30"></div>
+    </div>
+    <div class="relative z-20 max-w-3xl mx-auto text-center px-6">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+            DjangoBox Community Feedback
+        </h1>
+        <p class="text-lg text-cyan-100 mb-8">
+            Your voice shapes our future! Share your thoughts about Django Cameroon, our events, people, and technology.
+            Let's make Hacktoberfest 2025 unforgettable together.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button id="openDrawerBtnHero"
+                    class="px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold shadow hover:bg-emerald-400 transition">
+                Submit Feedback
+            </button>
+            <button onclick="document.getElementById('feedbacks').scrollIntoView({behavior: 'smooth'})"
+                    class="px-6 py-3 rounded-xl bg-white/10 text-cyan-200 font-semibold shadow hover:bg-cyan-200 hover:text-cyan-900 transition">
+                See Feedbacks
+            </button>
+        </div>
+        {% if messages %}
+            <div class="mt-8 space-y-2">
+                {% for message in messages %}
+                    <div class="rounded-xl border border-green-400/40 bg-green-500/10 px-4 py-3 text-sm text-green-200">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Feedback Drawer -->
+<div id="drawerOverlay" class="fixed inset-0 z-40 bg-black/40 hidden"></div>
+<aside id="drawer"
+       class="fixed top-0 left-0 h-full w-full sm:w-[400px] bg-slate-900 shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 overflow-y-auto">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-cyan-800">
+        <h2 class="text-xl font-bold text-cyan-200">Submit Feedback</h2>
+        <button id="closeDrawerBtn" class="text-slate-400 hover:text-cyan-400 text-2xl">&times;</button>
+    </div>
+    <form id="feedbackForm" method="post" class="px-6 py-6 space-y-6">
+        {% csrf_token %}
+        <div>
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-widest text-blue-200" for="id_user_name">Your Name</label>
+            {{ form.user_name }}
+        </div>
+        <div>
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-widest text-blue-200" for="id_topic">Topic</label>
+            {{ form.topic }}
+            <datalist id="topic-list">
+                {% for t in topics %}
+                    <option value="{{ t }}"></option>
+                {% endfor %}
+            </datalist>
+        </div>
+        <div>
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-widest text-blue-200" for="id_content">Feedback</label>
+            {{ form.content }}
+        </div>
+        <button type="submit"
+                class="w-full px-5 py-3 rounded-xl bg-indigo-600 text-white font-semibold shadow hover:bg-blue-600 transition duration-200">
+            Send Feedback
+        </button>
+    </form>
+</aside>
+
+<!-- Feedbacks Section -->
+<main id="feedbacks" class="max-w-4xl mx-auto pt-10 pb-20 px-4">
+    <h2 class="text-3xl font-bold text-white mb-8 text-center">Community Feedbacks</h2>
+    <div class="grid gap-6">
+        {% for feedback in page_obj %}
+            <div class="rounded-xl border border-cyan-800 bg-slate-900/80 p-6 shadow hover:shadow-emerald-500/20 transition">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="font-semibold text-cyan-300">{{ feedback.user_name }}</span>
+                    <span class="text-xs text-slate-400">on {{ feedback.topic.name }}</span>
+                    <span class="ml-auto text-xs text-slate-500">{{ feedback.created_at|date:'M d, Y H:i' }}</span>
+                </div>
+                <div class="prose prose-invert max-w-none text-slate-100">{{ feedback.content_rendered|safe }}</div>
+            </div>
+        {% empty %}
+            <div class="text-center text-slate-400 py-12">No feedbacks yet. Be the first to share your thoughts!</div>
+        {% endfor %}
+    </div>
+    <!-- Pagination -->
+    {% if page_obj.has_other_pages %}
+        <nav class="mt-10 flex justify-center gap-2">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}"
+                   class="px-3 py-2 rounded-xl bg-emerald-500 text-white hover:bg-emerald-400">Previous</a>
+            {% endif %}
+            <span class="px-3 py-2 rounded-xl bg-slate-800 text-cyan-200">Page {{ page_obj.number }} of
+                {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}"
+                   class="px-3 py-2 rounded-xl bg-emerald-500 text-white hover:bg-emerald-400">Next</a>
+            {% endif %}
+        </nav>
+    {% endif %}
+</main>
+
+<!-- Footer -->
+<footer class="bg-cyan-900/90 py-8 text-center text-xs text-cyan-200 border-t border-cyan-800">
+    Built for the Django Cameroon community — Hacktoberfest 2025 edition.
+</footer>
+
+<!-- Drawer & AJAX JS -->
+<script>
+    const drawer = document.getElementById('drawer');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+    const openDrawerBtns = [document.getElementById('openDrawerBtn'), document.getElementById('openDrawerBtnHero')];
+    const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+    const feedbackForm = document.getElementById('feedbackForm');
+    let drawerOpen = false;
+
+    function openDrawer() {
+        drawer.classList.remove('-translate-x-full');
+        drawerOverlay.classList.remove('hidden');
+        document.body.classList.add('drawer-open');
+        drawerOpen = true;
+    }
+
+    function closeDrawer() {
+        drawer.classList.add('-translate-x-full');
+        drawerOverlay.classList.add('hidden');
+        document.body.classList.remove('drawer-open');
+        drawerOpen = false;
+    }
+
+    openDrawerBtns.forEach(btn => btn && btn.addEventListener('click', openDrawer));
+    closeDrawerBtn.addEventListener('click', closeDrawer);
+    drawerOverlay.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', function (e) {
+        if (drawerOpen && e.key === 'Escape') closeDrawer();
+    });
+
+    // AJAX form submission
+    feedbackForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData(feedbackForm);
+        fetch("{% url 'core:home' %}", {
+            method: 'POST',
+            headers: {'X-Requested-With': 'XMLHttpRequest'},
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    closeDrawer();
+                    // Show success message at top of hero
+                    const hero = document.querySelector('section.relative');
+                    let msgDiv = document.createElement('div');
+                    msgDiv.className = "mt-8 rounded-xl border border-green-400/40 bg-green-500/10 px-4 py-3 text-sm text-green-200 mx-auto max-w-lg";
+                    msgDiv.innerText = data.message;
+                    hero.appendChild(msgDiv);
+                    setTimeout(() => msgDiv.remove(), 6000);
+                    feedbackForm.reset();
+                } else {
+                    // Show errors
+                    alert('Error: ' + (data.errors || 'Unknown error'));
+                }
+            })
+            .catch(() => alert('Submission failed. Please try again.'));
+    });
+
+    // Topic field logic
+    const topicSelect = document.getElementById('id_topic');
+    const newTopicInput = document.getElementById('id_new_topic');
+    topicSelect.addEventListener('change', function() {
+        if (topicSelect.value) {
+            newTopicInput.value = '';
+            newTopicInput.disabled = true;
+        } else {
+            newTopicInput.disabled = false;
+        }
+    });
+    newTopicInput.addEventListener('input', function() {
+        if (newTopicInput.value.trim()) {
+            topicSelect.selectedIndex = 0;
+            topicSelect.disabled = true;
+        } else {
+            topicSelect.disabled = false;
+        }
+    });
+</script>
+</body>
+
+</html>
+
