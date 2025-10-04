@@ -1,0 +1,21 @@
+[
+  {
+    "user_name": "Alice",
+    "topic": "Events",
+    "content": "Great job on the last Django meetup! Learned a lot about Django signals.",
+    "created_at": "2025-10-01T14:23:00Z"
+  },
+  {
+    "user_name": "Bob",
+    "topic": "Core Team",
+    "content": "The core team is very responsive and helpful. Keep up the good work!",
+    "created_at": "2025-10-02T09:15:00Z"
+  },
+  {
+    "user_name": "Chantal",
+    "topic": "Technology",
+    "content": "Would love to see more sessions on Django REST Framework and deployment best practices.",
+    "created_at": "2025-10-03T18:45:00Z"
+  }
+]
+
