@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>DjangoBox Feedbacks | Hacktoberfest 2025</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <style>
         body {
             font-family: 'Poppins', ui-sans-serif, system-ui;
@@ -92,8 +94,8 @@
             {{ form.user_name }}
         </div>
         <div>
-            <label class="mb-2 block text-xs font-semibold uppercase tracking-widest text-blue-200" for="id_topic">Topic</label>
-            {{ form.topic }}
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-widest text-blue-200" for="id_topic_name">Topic</label>
+            {{ form.topic_name }}
             <datalist id="topic-list">
                 {% for t in topics %}
                     <option value="{{ t }}"></option>
@@ -116,7 +118,7 @@
     <h2 class="text-3xl font-bold text-white mb-8 text-center">Community Feedbacks</h2>
     <div class="grid gap-6">
         {% for feedback in page_obj %}
-            <div class="rounded-xl border border-cyan-800 bg-slate-900/80 p-6 shadow hover:shadow-emerald-500/20 transition">
+            <div class="feedback-card rounded-xl border border-cyan-800 bg-slate-900/80 p-6 shadow hover:shadow-emerald-500/20 transition">
                 <div class="flex items-center gap-2 mb-2">
                     <span class="font-semibold text-cyan-300">{{ feedback.user_name }}</span>
                     <span class="text-xs text-slate-400">on {{ feedback.topic.name }}</span>
@@ -209,25 +211,7 @@
             .catch(() => alert('Submission failed. Please try again.'));
     });
 
-    // Topic field logic
-    const topicSelect = document.getElementById('id_topic');
-    const newTopicInput = document.getElementById('id_new_topic');
-    topicSelect.addEventListener('change', function() {
-        if (topicSelect.value) {
-            newTopicInput.value = '';
-            newTopicInput.disabled = true;
-        } else {
-            newTopicInput.disabled = false;
-        }
-    });
-    newTopicInput.addEventListener('input', function() {
-        if (newTopicInput.value.trim()) {
-            topicSelect.selectedIndex = 0;
-            topicSelect.disabled = true;
-        } else {
-            topicSelect.disabled = false;
-        }
-    });
+    // Topic field logic - removed since we only have one topic input field
 </script>
 </body>
 
