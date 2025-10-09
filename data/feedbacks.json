@@ -16,6 +16,12 @@
     "topic": "Technology",
     "content": "Would love to see more sessions on Django REST Framework and deployment best practices.",
     "created_at": "2025-10-03T18:45:00Z"
+  },
+  {
+    "user_name": "Charles",
+    "topic": "Community Event",
+    "content": "J'ai participé au Daytona Tour de Yaoundé le 6 septembre, et c'était une expérience incroyable ! Les ateliers pratiques sur Django et l'ambiance collaborative m'ont vraiment motivé à contribuer davantage à l'open source. J’espère qu’on aura plus d’événements de ce type dans d’autres villes du Cameroun.",
+    "created_at": "2025-09-06T15:30:00Z"
   }
 ]
 
