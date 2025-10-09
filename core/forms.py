@@ -2,7 +2,7 @@ from django import forms
 from .models import Feedback
 
 class FeedbackForm(forms.ModelForm):
-    topic = forms.CharField(
+    topic_name = forms.CharField(
         max_length=100,
         widget=forms.TextInput(attrs={
             'class': 'block w-full px-3 py-2 bg-slate-800 text-white border-blue-700 focus:border-indigo-400 focus:ring-indigo-400 rounded-xl shadow-sm focus:outline-none',
@@ -14,7 +14,7 @@ class FeedbackForm(forms.ModelForm):
 
     class Meta:
         model = Feedback
-        fields = ['user_name', 'topic', 'content']
+        fields = ['user_name', 'content']
         widgets = {
             'user_name': forms.TextInput(attrs={
                 'class': 'block w-full px-3 py-2 bg-slate-800 text-white border-blue-700 focus:border-indigo-400 focus:ring-indigo-400 rounded-xl shadow-sm focus:outline-none',

@@ -11,13 +11,45 @@ See `CONTRIBUTING.md` for details about how to contribute.
 
 ## Features
 
-- Submit feedback entries (stored in a simple data layer)
-- View feedback summaries
+- Submit feedback entries with markdown support
+- View feedback summaries with pagination
+- AJAX form submission for better user experience
+- Admin interface for managing feedbacks and topics
+- Import sample data from JSON files
+- Responsive design with modern UI
+- Comprehensive test coverage
 - Small, focused Django app so contributors can get started quickly
 
-## Quick start (development, Windows PowerShell)
+## Quick start (development)
 
-These steps assume you have Python 3.8+ installed. If the repository includes a `requirements.txt` file, prefer installing from it; otherwise install Django and other dependencies manually.
+These steps assume you have Python 3.8+ installed.
+
+### Linux/macOS:
+
+1. Create and activate a virtual environment:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+2. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Prepare the database and run the development server:
+
+```bash
+python manage.py migrate
+python manage.py import_feedbacks  # Import sample data
+python manage.py runserver
+```
+
+4. Open http://127.0.0.1:8000/ in your browser to view the site.
+
+### Windows PowerShell:
 
 1. Create and activate a virtual environment:
 
@@ -26,18 +58,17 @@ python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
-2. Install dependencies (if a `requirements.txt` exists):
+2. Install dependencies:
 
 ```powershell
 pip install -r requirements.txt
-# or, if no requirements file exists
-pip install django
 ```
 
 3. Prepare the database and run the development server:
 
 ```powershell
 python manage.py migrate
+python manage.py import_feedbacks  # Import sample data
 python manage.py runserver
 ```
 
