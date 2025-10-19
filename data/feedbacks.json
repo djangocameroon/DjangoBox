@@ -22,6 +22,12 @@
     "topic": "Community Event",
     "content": "J'ai participé au Daytona Tour de Yaoundé le 6 septembre, et c'était une expérience incroyable ! Les ateliers pratiques sur Django et l'ambiance collaborative m'ont vraiment motivé à contribuer davantage à l'open source. J’espère qu’on aura plus d’événements de ce type dans d’autres villes du Cameroun.",
     "created_at": "2025-09-06T15:30:00Z"
-  }
+  },
+  {
+    "user_name": "Juvenal",
+    "topic": "Community Event",
+    "content": "J'ai eu l'honneur de participer au DevFest Yaoundé 2025, et c'était une expérience incroyablement enrichissante ! Les conférences inspirantes, les ateliers pratiques et l'ambiance collaborative m'ont permis d'apprendre énormément sur les nouvelles technologies et de renforcer mes compétences. J’espère voir plus d’événements de ce type dans d’autres villes du Cameroun.",
+    "created_at": "2025-10-19T19:50:00Z"
+}
 ]
 
